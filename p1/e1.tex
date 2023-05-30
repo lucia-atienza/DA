@@ -1,0 +1,15 @@
+A cada celda se le ha dado el valor de:
+\[
+\sum_{it=obstacles.begin()}^{obstacles.end()}\_distance((*it) \rightarrow position, posicionCeldaActual)
+\]
+el sumatorio de las distancias a los obst\'aculos que hay en el mapa desde la celda actual. 
+El valor resultante luego es ponderado seg\'un la posicion de la celda en el mapa, 
+d\'andole mejores puntuaciones a las posiciones centrales del mapa. Pongamos un ejemplo 
+de esto \'ultimo con un mapa de 5x5: [Figura \ref{fig:defenseValueCellsHead}]
+\begin{figure}
+\centering
+\includegraphics[scale=0.88]{../valoresCeldas} 
+\caption{Estrategia valores a celdas para el centro de extracción de minerales}
+\label{fig:defenseValueCellsHead}
+\end{figure}
+

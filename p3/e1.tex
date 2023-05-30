@@ -1,0 +1,19 @@
+En todos los casos se ha usado un struct celda para representar las casillas del mapa:
+\begin{lstlisting}
+struct celda
+{
+    double valor;
+    int row, col;
+    celda() : valor(0), row(0), col(0) {}
+    celda(int row, int col, double valor) : row(row), col(col), valor(valor) {}
+    bool operator<(const celda& c) const
+    {
+        return valor < c.valor;
+    }
+    bool operator<=(const celda& c) const
+    {
+        return valor < c.valor || valor == c.valor; 
+    }
+};
+\end{lstlisting}
+Y para la representaci\'on del mapa se ha usado en todos los casos el contenedor de la biblioteca est\'andar std::vector.

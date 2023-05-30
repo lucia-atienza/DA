@@ -1,0 +1,20 @@
+\begin{lstlisting}
+void rellenarTSR(std::vector<std::vector<int> >& TSP, const std::vector<int>& valores, const std::vector<Defense*>& defensas)
+{
+    for(int i = 0; i < TSP[0].size(); ++i)
+    {
+        if(i < defensas[0]->cost)
+            TSP[0][i] = 0;
+        else 
+            TSP[0][i] = valores[0];
+    }
+    for(int i = 1; i < defensas.size(); ++i)
+        for(int j = 0; j < TSP[0].size(); ++j)
+        {
+            if(j < defensas[i]->cost)
+                TSP[i][j] = TSP[i-1][j];
+            else
+                TSP[i][j] = std::max(TSP[i-1][j], TSP[i-1][j-defensas[i]->cost] + valores[i]);
+        }
+}
+\end{lstlisting}

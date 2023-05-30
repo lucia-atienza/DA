@@ -1,0 +1,24 @@
+Para poder aplicar el algoritmo A*, necesitamos una lista de nodos abiertos y otra de nodos cerrados. Para ambas he usado el contenedor de la biblioteca est\'andar de C++ std::vector. Esto es as\'i por eficiencia y para poder utilizar mont\'iculos. Debido a que el mont\'iculo de la biblioteca est\'andar es un mont\'iculo de m\'aximos, he necesitado la funci\'on min:
+
+\begin{lstlisting}
+bool min(const AStarNode* nodo1, const AStarNode* nodo2)
+{
+    return nodo2->F < nodo1->F;
+}
+\end{lstlisting}
+
+para poder hacer un mont\'iculo de m\'inimos. 
+
+Comenzamos el algoritmo desde el nodo origen, el cual introducimos en la lista de abiertos. Mientras no hayamos llegado al nodo objetivo y nos queden nodos disponibles en la lista de abiertos:
+\begin{itemize}
+	\item Escogemos el nodo m\'as prometedor sac\'andolo del vector de abiertos y lo introducimos en cerrados. 
+	\item Si hemos llegado al objetivo, paramos de buscar.
+	\item En caso de no haber llegado al objetivo, recorremos la lista de adyacencia del nodo actual. Para cada uno de los nodos que se encuentran en la lista de adyacencia, comprobamos primeramente que no se encuentre en la lista de cerrados (en caso de encontrarlo, no hacemos nada). Posteriormente buscamos en la lista de abiertos. Ahora tenemos dos posibilidades, que el nodo se encuentre en la lista de abiertos o que no. 
+	\begin{itemize}
+		\item El nodo no se encuentra en abiertos: establecemos los valores correspondientes al mismo y lo incluimos en la lista de abiertos.
+		\item El nodo se encuentra en abiertos: en este caso, actualizaremos el valor del nodo si, pasando por el nodo al cual estamos mirando la lista de adyacencia, el valor del nodo sea mejor que su valor actual. 
+	\end{itemize}
+\end{itemize}
+
+
+Una vez hecho esto, debemos recuperar el camino. El camino solo se debe recuperar en caso de haber llegado al objetivo. Vamos incluyendo en la lista path desde el targetNode hasta el originNode haciendo uso del puntero al padre disponible en cada nodo. 

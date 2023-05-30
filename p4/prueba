@@ -1,0 +1,12 @@
+#!/bin/bash
+niveles=(1224	2225	2054	2056	2556	2556	2452	2428	3256	3292)
+minimo=(33,10	94,90	32,00	38,50	122,00	122,00	151,00	158,50	147,30	86,20)
+rm file.txt
+for j in {0..9} 
+do
+    echo -n "Nivel" ${niveles[$j]} ": "  
+    ../simulador/simulador -level ${niveles[$j]} >> file.txt
+    ../simulador/simulador -level ${niveles[$j]} 
+    echo "Minimo: " ${minimo[$j]}
+    echo ' '
+done

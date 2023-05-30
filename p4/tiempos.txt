@@ -1,0 +1,51 @@
+for(std::list<Object*>::iterator currentObstacle = obstacles.begin(); currentObstacle != obstacles.end(); currentObstacle++) 
+    {
+    	int x,y;
+    	positionToCell((*currentObstacle)->position, x, y, cellsWidth, cellsHeight);
+    	additionalCost[x][y] += mapWidth*2.5; //aniado valor grande
+    }
+    
+    for(std::list<Defense*>::iterator defense = defenses.begin(); defense != defenses.end(); defense++) 
+    {
+    	int x,y;
+    	positionToCell((*defense)->position, x, y, cellsWidth, cellsHeight);
+    	additionalCost[x][y] += mapWidth*5; //aniado valor grande
+    }
+           
+
+    for(int i = 0 ; i < cellsHeight ; ++i) 
+    {
+        for(int j = 0 ; j < cellsWidth ; ++j) 
+        {
+            Vector3 cellPosition = cellCenterToPosition(i, j, cellWidth, cellHeight);
+            float cost = 0;
+            if( (i+j) % 2 == 0 ) {
+                cost = cellWidth * 100;
+            }
+            if(additionalCost[i][j] != 0)
+            	additionalCost[i][j] += cost;
+            else 
+            	additionalCost[i][j] = cost;
+        }
+    }
+    ========================================= 64
+    
+    
+    for(int i = 0 ; i < cellsHeight ; ++i) 
+    {
+        for(int j = 0 ; j < cellsWidth ; ++j) 
+        {
+            Vector3 cellPosition = cellCenterToPosition(i, j, cellWidth, cellHeight);
+            float cost = 0;
+            if( (i+j) % 2 == 0 ) {
+                cost = cellWidth * 100;
+            }
+            if(additionalCost[i][j] != 0)
+            	additionalCost[i][j] += cost;
+            else 
+            	additionalCost[i][j] = cost;
+        }
+    }
+    
+    
+    ==========================53

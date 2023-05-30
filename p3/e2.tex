@@ -1,0 +1,38 @@
+\begin{lstlisting}
+void fusion(std::vector<celda>& v, int i, int k, int j)
+{
+    int n = j - i;
+    int p = i, q = k;
+    std::vector<celda> w(v.size());
+    for(int l = 0; l < n; l++)
+    {
+        if(p < k && (q >= j || v[p] <= v[q]))
+        {
+            w[l] = v[p];
+            p++;
+        }
+        else
+        {
+            w[l] = v[q];
+            q++;
+        }
+    }
+
+    for(int l = 0; l < n; l++)
+        v[i + l] =  w[l];
+}
+
+void ordenacion_fusion(std::vector<celda>& v, int i, int j)
+{
+    int n = j - i;
+    if(n <= 3)
+        insertionSort(v, i, j);
+    else
+    {
+        int k = i + n/2;
+        ordenacion_fusion(v, i, k);
+        ordenacion_fusion(v, k, j);
+        fusion(v, i, k, j); 
+    }
+}
+\end{lstlisting}

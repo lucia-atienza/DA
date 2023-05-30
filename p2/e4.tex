@@ -1,0 +1,21 @@
+\begin{lstlisting}
+void escogidos(const std::vector<std::vector<int> >& TSP, std::list<int>& selectedIDs,
+     const std::vector<Defense*>& defensas, int ases)
+{
+    int i = defensas.size()-1;
+    while(i > 0)
+    {
+        if(TSP[i][ases] != TSP[i-1][ases])
+        {
+            selectedIDs.push_back(defensas[i]->id);
+            ases -= defensas[i]->cost;
+        }
+        i--;
+    } 
+    if(TSP[0][ases] != 0)
+    {
+        selectedIDs.push_back(defensas[i]->id);
+        ases -= defensas[i]->cost;
+    }
+}
+\end{lstlisting}

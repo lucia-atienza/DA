@@ -1,0 +1,54 @@
+
+\begin{lstlisting}
+bool factible(int row, int col, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight, std::list<Object*> obstacles, 
+        std::list<Defense*> defenses, Defense* currentDefense)
+{
+    Vector3 defensePosition = cellToPosition(row, col, mapWidth/nCellsWidth, mapHeight/nCellsHeight);
+    float defenseRatio = currentDefense->radio;
+    //no se sale del mapa 
+    if(defensePosition.y + defenseRatio > mapHeight || defensePosition.x + defenseRatio > mapWidth || 
+        defensePosition.x - defenseRatio < 0 || defensePosition.y - defenseRatio < 0)
+        return false;
+
+    //no choca con obstaculos
+    for(std::list<Object*>::iterator currentObstacle = obstacles.begin(); currentObstacle != obstacles.end(); currentObstacle++) 
+        if(_distance(defensePosition, (*currentObstacle)->position) < (defenseRatio + (*currentObstacle)->radio))
+            return false;
+
+    //no choca con las anteriores defensas
+    for(std::list<Defense*>::iterator defense = defenses.begin(); *defense != currentDefense; defense++) 
+    {
+        if(_distance(defensePosition, (*defense)->position) < defenseRatio + (*defense)->radio)
+            return false;
+    }
+    //si llega hasta aqui es porque la posicion es valida
+    return true;
+}
+\end{lstlisting}
+
+La funci\'on de factibilidad (\texttt{factible}) recibe:
+\begin{itemize}
+	\item La fila y la columna correspondiente a la celda que vamos a evaluar.
+	\item El n\'umero de celdas a lo ancho y a lo alto que tiene el mapa, as\'i como el tamaño del mismo.
+	\item Una lista de los objetos que hay en el mapa.
+	\item Una lista con las defensas.
+	\item La defensa a colocar.
+\end{itemize}
+y devuelve un booleano que ser\'a:
+\begin{itemize}
+	\item \texttt{True} en caso de que la celda pueda ser ocupada por la defensa a colocar.
+	\item \texttt{False} en caso contrario.
+\end{itemize}
+
+Al colocar la defensa en la celda debe hacerse en el centro de la misma. De calcular esta posici\'on se encarga la funci\'on \texttt{cellToPosition}. Sabiendo ahora la posici\'on en la que ir\'ia la defensa, debemos controlar que al sumarle el radio de la misma:
+ \begin{itemize}
+	\item No se salga del mapa.
+	\item No choque con ninguno de los obst\'aculos que hay en el mapa
+ (\texttt{obstacles}).
+ 	\item No choque con ninguna de las defensas que ya han sido colocadas. Las defensas se colocan en orden, por lo que solo se comprueba hasta la defensa actual (las siguientes (si hubieran) a\'un no est\'an colocadas en el mapa. 
+\end{itemize}
+
+
+
+
+

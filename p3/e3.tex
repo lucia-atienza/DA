@@ -1,0 +1,31 @@
+\begin{lstlisting}
+int pivote(std::vector<celda>& v, int i, int j)
+{
+    int p = i;
+    celda x = v[i];
+    for(int k = i+1; k < j && (p < j - 1); k++)
+    {
+        if(v[k] <= x)
+        {
+            p++;
+            std::swap(v[p], v[k]);
+        }
+    }
+    v[i] = v[p];
+    v[p] = x;
+    return p;
+}
+
+void ordenacion_rapida(std::vector<celda>& v, int i, int j)
+{
+    int n = j - i;
+    if(n <= 3)
+        insertionSort(v, i, j);
+    else
+    {
+        int p = pivote(v, i, j);
+        ordenacion_rapida(v, i, p);
+        ordenacion_rapida(v, p+1, j);
+    }
+}
+\end{lstlisting}

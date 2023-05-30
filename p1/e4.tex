@@ -1,0 +1,22 @@
+El algoritmo usa dos estructuras para manejar los datos, una matriz y una lista. Para la matriz se ha usado
+el contenedor de la STL std::vector. Se llama a la funcion rellenaMapa para asignar valores a todas y cada una
+de las celdas del mapa. Luego se han almacenado las celdas en una lista para poder ordenarlas por valor,
+permitiendo que la funci\'on extraeCelda devuelva la mejor celda de todas las disponibles en coste constante.
+El algoritmo sigue el siguiente esquema de los algoritmos devoradores:\\
+$ listaCeldas \leftarrow rellenarCon(mapa) $ \\
+listaCeldas.sort()\\
+centroColocado $\leftarrow$ false \\
+mientras $ \neg  centroColocado  \land listaCeldas  \neq \emptyset $\\
+\hspace*{1cm} p $\leftarrow extraccionCelda(listaCeldas)$\\
+\hspace*{1cm} si factible(p)\\
+\hspace*{2cm} centroColocado  $\leftarrow$ true\\
+
+Se distinguen los siguientes elementos caracter\'isticos de los algoritmos devoradores:
+\begin{itemize}
+    \item Conjunto de candidatos: las celdas disponibles.   
+    \item Candidatos seleccionados: la primera celda en la que sea factible colocar el centro de extracción de minerales.
+    \item Funcion de factibilidad: la funci\'on factible.
+    \item Funci\'on de selecci\'on: la funci\'on extraeCelda().
+    \item Soluci\'on: colocar el centro de extracci\'on de minerales.
+    \item Objetivo: colocar el centro extracci\'on de minerales en la mejor celda para maximizar el tiempo de vida del mismo.
+\end{itemize}

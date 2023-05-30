@@ -1,0 +1,24 @@
+\begin{lstlisting}
+void DEF_LIB_EXPORTED placeDefenses(bool** freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight,
+             std::list<Object*> obstacles, std::list<Defense*> defenses) 
+{
+    std::list<Defense*> copiaDefensas = defenses;
+    copiaDefensas.pop_front();
+    copiaDefensas.sort(sortDefenses);
+    std::list<Defense*>::iterator currentDefense = copiaDefensas.begin();
+    copiaDefensas.push_front(defenses.front()); //volvemos a introducir el centro de extraccion para que no de problemas en factible...
+    std::list<celda> listaCeldas2; 
+    modificaMapa(mapa, *centroExtraccion, nCellsWidth, nCellsHeight);
+    rellenaLista(mapa, listaCeldas2, nCellsWidth, nCellsHeight);
+    while(currentDefense != copiaDefensas.end() && !listaCeldas2.empty()) 
+    {
+        celda mejorPosicion = extraeCelda(listaCeldas2);
+        if(factible(mejorPosicion.row, mejorPosicion.col, nCellsWidth, nCellsHeight, mapWidth, mapHeight, obstacles, copiaDefensas, *currentDefense))
+        {
+            (*currentDefense)->position = cellToPosition(mejorPosicion.row, mejorPosicion.col, cellWidth, cellHeight);
+            ++currentDefense;
+        }
+    }
+}
+\end{lstlisting}
+

@@ -1,0 +1,37 @@
+Partimos sabiendo que la suma del n\'umero de obst\'aculos y el n\'umero de defensas siempre ser\'a menor que el n\'umero de casillas del mapa.
+
+\begin{itemize}
+    \item \textbf{Sin preordenaci\'on:} la funci\'on rellenaVector() pertenece al $O(n)$, siendo n el n\'umero de casillas del mapa. 
+    El bucle while ser\'a de $O(n)$ en el peor de los casos (n\'umero de defensas = n\'umero de casillas factibles) y $O(defenses.size())$ en el mejor de los casos 
+    (todas las casillas seleccionadas sean factibles). La funci\'on factible tiene orden lineal 
+    (concretamente ser\'a igual al m\'aximo entre el n\'umero de defensas y el n\'umero de obst\'aculos, llam\'emoslo $x$).
+    El resto de operaciones que se hacen en la estrategia de colocaci\'on de defensas es de orden constante. 
+    Nos queda, por tanto $n + n*(n+x)$ en el peor de los casos y $n + defenses.size()*(n+x)$. Aplicando la regla del m\'aximo, nos queda $O(n*n)$ en el peor de los casos y 
+    $O(defenses.size()*n)$ en el mejor de los casos. 
+    
+    \item \textbf{Ordenaci\'on por fusi\'on:} la funci\'on rellenaVector() pertenece al $O(n)$, siendo n el n\'umero de casillas del mapa. 
+    El algoritmo de ordenacion por fusi\'on pertence al orden $O(n*\log n)$
+    El bucle while ser\'a de $O(n)$ en el peor de los casos (n\'umero de defensas = n\'umero de casillas factibles) y 
+    $O(defenses.size()$ en el mejor de los casos 
+    (todas las casillas seleccionadas sean factibles). La funci\'on factible tiene orden lineal 
+    (concretamente ser\'a igual al m\'aximo entre el n\'umero de defensas y el n\'umero de obst\'aculos, llam\'emoslo $x$).
+    El resto de operaciones que se hacen en la estrategia de colocaci\'on de defensas es de orden constante. 
+    Nos queda, por tanto $n + n*\log n + n*(const+x)$ en el peor de los casos y $n + n*\log n + defenses.size()*(const+x)$. Podemos despreciar las constantes, por lo que en el peor caso el orden será el máximo de $n*\log n$ y $n*x$.
+    
+
+    \item \textbf{Ordenaci\'on por ordenaci\'on r\'apida:} la funci\'on rellenaVector() pertenece al $O(n)$, siendo n el n\'umero de casillas del mapa. 
+    El algoritmo de ordenacion por ordenaci\'on r\'apida pertence al orden $O(n*\log n)$
+    El bucle while ser\'a de $O(n)$ en el peor de los casos (n\'umero de defensas = n\'umero de casillas factibles) y $O(defenses.size())$ en el mejor de los casos 
+    (todas las casillas seleccionadas sean factibles). La funci\'on factible tiene orden lineal 
+    (concretamente ser\'a igual al m\'aximo entre el n\'umero de defensas y el n\'umero de obst\'aculos, llam\'emoslo $x$).
+    El resto de operaciones que se hacen en la estrategia de colocaci\'on de defensas es de orden constante. 
+    Aplicando la regla del m\'aximo, nos queda $O(n*\log n)$ en el peor de los casos. 
+
+    \item \textbf{Ordenaci\'on usando mont\'iculo:} la funci\'on rellenaVector() pertenece al $O(n)$, siendo n el n\'umero de casillas del mapa. 
+    std::make\_heap() es de orden $O(n)$. El bucle while ser\'a de $O(n)$ en el peor de los casos (n\'umero de defensas = n\'umero de casillas factibles) y $O(defenses.size())$ en 
+    el mejor de los casos (todas las casillas seleccionadas sean factibles). std::pop\_heap() tiene orden $O(\log n)$, 
+    luego el bucle tendr\'a $O(n*\log n)$ en el peor de los casos.
+    La funci\'on factible tiene orden lineal (concretamente ser\'a igual al m\'aximo entre el n\'umero de defensas y el n\'umero de obst\'aculos, llam\'emoslo $x$).
+    El resto de operaciones que se hacen en la estrategia de colocaci\'on de defensas es de orden constante. 
+    Aplicando la regla del m\'aximo, nos queda $O(n*\log n)$ en el peor de los casos. 
+\end{itemize}

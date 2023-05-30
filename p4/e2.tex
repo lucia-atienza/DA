@@ -1,0 +1,68 @@
+\begin{lstlisting}
+void DEF_LIB_EXPORTED calculatePath(AStarNode* originNode, AStarNode* targetNode
+                   , int cellsWidth, int cellsHeight, float mapWidth, float mapHeight
+                   , float** additionalCost, std::list<Vector3> &path) 
+{
+    bool found = false;
+    std::vector<AStarNode*> closed, opened;
+    AStarNode* cur = originNode;
+    int x, y;
+    positionToCell((cur)->position, x, y, cellsWidth, cellsHeight);
+    cur->H = estimatedDistance(originNode, targetNode, x, y, additionalCost);
+    cur->G = 0; 
+    cur->F = cur->G + cur->H;
+    opened.push_back(cur);
+    std::make_heap(opened.begin(), opened.end(), min);
+    while(!found && opened.size() > 0) //mientras no se encuentre solucion y queden nodos disponibles
+    {
+        std::pop_heap(opened.begin(), opened.end(), min);
+        cur = opened.back();
+        opened.pop_back(); 
+        closed.push_back(cur);
+        if(iguales(cur, targetNode))
+            found = true;
+        else
+        {
+            List<AStarNode*>::iterator j; 
+            for(j = cur->adjacents.begin(); j != cur->adjacents.end(); ++j) 
+            {
+                if(std::find_if(closed.begin(), closed.end(), isEqualTo(*j)) == std::end(closed)) //no se encuentra en cerrados
+                {
+                    if(std::find_if(opened.begin(), opened.end(), isEqualTo(*j)) == std::end(opened)) //no se encuentra en abiertos
+                    {
+                        (*j)->parent = cur;
+                        (*j)->G = cur->G + _distance(cur->position, (*j)->position);
+                        int row,col;
+                        positionToCell((*j)->position, row, col, cellsWidth, cellsHeight);
+                        (*j)->H = estimatedDistance(*j, targetNode, row, col, additionalCost);
+                        (*j)->F = (*j)->G + (*j)->H;
+                        opened.push_back(*j);
+                        std::push_heap(opened.begin(), opened.end(), min);
+                    }
+                    else //se ha encontrado en abiertos
+                    {
+                        float d = _distance(cur->position, (*j)->position);
+                        if((*j)->G > cur->G + d)
+                        {
+                            (*j)->parent = cur;
+                            (*j)->G = cur->G + d;
+                            (*j)->F = (*j)->G + (*j)->H;
+                            std::sort_heap(opened.begin(), opened.end(), min);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(found) //si hemos encontrado solucion, recuperamos camino
+    {
+        cur = targetNode;
+        path.push_front(targetNode->position);
+		while(cur->parent != originNode)
+		{
+			cur = cur->parent;
+			path.push_front(cur->position);
+		}
+    }
+}
+\end{lstlisting}
